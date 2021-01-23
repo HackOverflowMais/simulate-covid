@@ -1,3 +1,58 @@
+var rangeslid = document.getElementById("sliderRange");
+document.getElementById("populat").value = rangeslid.value;
+
+rangeslid.oninput = function() {
+  document.getElementById("populat").value = this.value;
+}
+
+var textentry = document.getElementById("populat");
+// First box
+var rangeslid2 = document.getElementById("sliderRange2");
+document.getElementById("Infected").value = rangeslid2.value;
+
+rangeslid2.oninput = function() {
+  document.getElementById("Infected").value = this.value;
+}
+var textentry2 = document.getElementById("Infected");
+//box2
+
+var rangeslid3 = document.getElementById("sliderRange3");
+document.getElementById("Transmission_prob").value = rangeslid3.value;
+
+rangeslid3.oninput = function() {
+  document.getElementById("Transmission_prob").value = this.value;
+}
+
+var textentry3 = document.getElementById("Transmission_prob");
+// First box
+var rangeslid4 = document.getElementById("sliderRange4");
+document.getElementById("Contact_Rate").value = rangeslid4.value;
+
+rangeslid4.oninput = function() {
+  document.getElementById("Contact_Rate").value = this.value;
+}
+var textentry4 = document.getElementById("Contact_Rate");
+
+
+var rangeslid5 = document.getElementById("sliderRange5");
+document.getElementById("Incubation").value = rangeslid5.value;
+
+rangeslid5.oninput = function() {
+  document.getElementById("Incubation").value = this.value;
+}
+
+var textentry5 = document.getElementById("Incubation");
+// First box
+var rangeslid6 = document.getElementById("sliderRange6");
+document.getElementById("Recovery").value = rangeslid6.value;
+
+rangeslid6.oninput = function() {
+  document.getElementById("Recovery").value = this.value;
+}
+var textentry6 = document.getElementById("Recovery");
+
+// Chart Code -------------------------------------------------------------------
+
 var ctx = document.getElementById('myChart').getContext('2d');
 
 var beta = 0.056;
@@ -24,9 +79,9 @@ function get_r_dot(i){
 
 // starting values of simulation
 
-var susceptible = 7000000000;
+var susceptible = 900;
 var exposed = 0;
-var infectious = 96000000;
+var infectious = 100;
 var recovered = 0;
 
 var resolution = 0.0001 // number of points added per trial
@@ -79,7 +134,7 @@ function simulate(t){
   return final;
 }
 
-plots = simulate(10000);
+plots = simulate(1000);
 
 
 function calculate_min_y(plots){
@@ -139,13 +194,18 @@ var chart = new Chart(ctx, { //template code for graphs
 
 document.getElementById("myChart").onclick = function() {myFunction()};
 
+
+
 function myFunction(){
   beta = 5;
 
-  console.log("ur noob");
+  plots = simulate(1000);
+  test_dataset = define_datasets(plots);
 
-  plots = simulate(1000)
-
-  chart.data.datasets = define_datasets(plots);
-  chart.update();
+  chart.data.datasets[0] = test_dataset[0];
+  chart.data.datasets[1] = test_dataset[1];
+  chart.data.datasets[2] = test_dataset[2];
+  chart.data.datasets[3] = test_dataset[3];
+ 
+  chart.update(0);
 }
