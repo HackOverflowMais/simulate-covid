@@ -14,8 +14,10 @@
 			<div class="graph">
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js">
 				</script>
-				<canvas id="myChart"></canvas>
-				<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
+        <div class="chart"> 
+				<canvas id="myChart" ></canvas>
+        </div>
+				<script> src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
 				</script>
 				<script src="script.js">
 				</script>
@@ -30,25 +32,22 @@
 						<h3> Population: </h3>
 					</div>
 					<div class='child inline-block-child'>
-						<input type = "number" id ="populat" class="inputbox" min = "0">
-          
-          
-
+						<input type = "number" id ="populat" class="inputbox" min = "100" max ="1000000000" onchange="generate_new_graph()">
             </div>
           </div>
             <div class="rangeslider"> 
-              <input type="range" min="1" max="100" class="myslider" id="sliderRange"> 
+              <input type="range" min="100" max="1000000000" class="myslider" id="sliderRange"> 
             </div>
             <div class='parent'>
           <div class='child inline-block-child'>
              <h3> Infected: </h3> 
             </div>
               <div class='child inline-block-child'>
-              <input type = "number" id ="Infected" class="inputbox" min = "0">
+              <input type = "number" id ="Infected" class="inputbox" min="100" max="1000000000" onchange="generate_new_graph()">
               </div>
           </div>
             <div class="rangeslider"> 
-              <input type="range" min="1" max="100" class="myslider" id="sliderRange2"> 
+              <input type="range" min="100" max="1000000000" class="myslider" id="sliderRange2"> 
             </div>
 
 
@@ -59,11 +58,11 @@
              <h3> Transmission Probability: </h3> 
             </div>
               <div class='child inline-block-child'>
-              <input type = "number" id ="Transmission_prob" class="inputbox" min = "0">
+              <input type = "number" id ="Transmission_prob" class="inputbox" min = "0" max="1" step = "0.01" onchange="generate_new_graph()">
               </div>
           </div>
             <div class="rangeslider"> 
-              <input type="range" min="1" max="100" class="myslider" id="sliderRange3"> 
+              <input type="range" min="0" max="1" step = "0.01" class="myslider" id="sliderRange3"> 
             </div>
 
             <div class='parent'>
@@ -71,11 +70,11 @@
              <h3> Contact Rate: </h3> 
             </div>
               <div class='child inline-block-child'>
-              <input type = "number" id ="Contact_Rate" class="inputbox" min = "0">
+              <input type = "number" id ="Contact_Rate" class="inputbox" min = "0" max="10" step="0.1"onchange="generate_new_graph()">
               </div>
           </div>
             <div class="rangeslider"> 
-              <input type="range" min="1" max="100" class="myslider" id="sliderRange4"> 
+              <input type="range" min="0" max="10" step="0.1" class="myslider" id="sliderRange4"> 
             </div>
 
 
@@ -84,11 +83,11 @@
              <h3> Incubation Period: </h3> 
             </div>
               <div class='child inline-block-child'>
-              <input type = "number" id ="Incubation" class="inputbox" min = "0">
+              <input type = "number" id ="Incubation" class="inputbox"  min="1" max="50"onchange="generate_new_graph()">
               </div>
           </div>
             <div class="rangeslider"> 
-              <input type="range" min="1" max="100" class="myslider" id="sliderRange5"> 
+              <input type="range" min="1" max="50" class="myslider" id="sliderRange5"> 
             </div>
 
             <div class='parent'>
@@ -96,24 +95,15 @@
              <h3> Recovery Rate:</h3> 
             </div>
               <div class='child inline-block-child'>
-              <input type = "number" id ="Recovery" class="inputbox" min = "0">
+              <input type = "number" id ="Recovery" class="inputbox" min = "0"max="1"
+              step="0.01" onchange="generate_new_graph()">
               </div>
           </div>
             <div class="rangeslider"> 
-              <input type="range" min="1" max="100" class="myslider" id="sliderRange6"> 
+              <input type="range" min="0" max="1"
+              step="0.01" class="myslider" id="sliderRange6"> 
             </div>
             <br>
-              <button class="button">Advanced Settings</button>
-              
-
-        
-
-          
-
-          
-           
-          
-					
         </div>
 		</section>
 	</main>
