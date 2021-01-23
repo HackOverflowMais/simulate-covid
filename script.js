@@ -24,12 +24,12 @@ function get_r_dot(i){
 
 // starting values of simulation
 
-var susceptible = 1000;
+var susceptible = 7000000000;
 var exposed = 0;
-var infectious = 100;
+var infectious = 96000000;
 var recovered = 0;
 
-var resolution = 0.01 // number of points added per trial
+var resolution = 0.0001 // number of points added per trial
 
 function simulate(t){
   var s = susceptible;
@@ -42,7 +42,7 @@ function simulate(t){
   var y = [];
   var z = [];
 
-  trial_no = 0
+  trial_no = 1
 
   var data_point;
   var final = [[], [], [], []];
@@ -67,11 +67,11 @@ function simulate(t){
 
     trial_no += resolution;
 
-    if (trial_no > 1){
-      final[0].push({x: j, y: s});
-      final[1].push({x: j, y: e});
-      final[2].push({x: j, y: i});
-      final[3].push({x: j, y: r});
+    if (trial_no >= 1){
+      final[0].push({x: j, y: Math.round(s)});
+      final[1].push({x: j, y: Math.round(e)});
+      final[2].push({x: j, y: Math.round(i)});
+      final[3].push({x: j, y: Math.round(r)});
       trial_no -= 1;
     }
   }
@@ -79,7 +79,39 @@ function simulate(t){
   return final;
 }
 
-plots = simulate(100);
+plots = simulate(10000);
+
+
+function calculate_min_y(plots){
+  var n = 0 // n is the sum of e, i, and r (in this case only)
+  for(i = 1; i < 4; i++){
+    n += plots[i][0]['y'];
+  }
+
+  min_s = plots[0][plots[0].length - 1]['y'];
+
+  return min_s - n/2;
+}
+
+function define_datasets(plots){
+  return [{
+    label: 'Susceptible',
+    data: plots[0],
+    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+  }, {
+    label: 'Exposed',
+    data: plots[1],
+    backgroundColor: 'rgba(153, 255, 153, 0.5)'
+  }, {
+    label: 'Infectuous',
+    data: plots[2],
+    backgroundColor: 'rgba(153, 153, 255, 0.5)'
+  }, {
+    label: 'Removed',
+    data: plots[3],
+    backgroundColor: 'rgba(255, 153, 153, 0.5)'
+  }];
+}
 
 var chart = new Chart(ctx, { //template code for graphs
     // The type of chart we want to create
@@ -87,19 +119,7 @@ var chart = new Chart(ctx, { //template code for graphs
 
     // The data for our dataset
     data: {
-      datasets: [{
-        label: 's',
-        data: plots[0],
-      }, {
-        label: 'e',
-        data: plots[1]
-      }, {
-        label: 'i',
-        data: plots[2]
-      }, {
-        label: 'r',
-        data: plots[3]
-      }]
+      datasets: define_datasets(plots)
     },
     // Configuration options go here
     options:{
@@ -108,8 +128,24 @@ var chart = new Chart(ctx, { //template code for graphs
           type: 'linear'
         }],
         yAxes: [{
-          stacked: true
+          stacked: true,
+          ticks: {
+            min: calculate_min_y(plots)
+          }
         }]
       }
     }
 });
+
+document.getElementById("myChart").onclick = function() {myFunction()};
+
+function myFunction(){
+  beta = 5;
+
+  console.log("ur noob");
+
+  plots = simulate(1000)
+
+  chart.data.datasets = define_datasets(plots);
+  chart.update();
+}
