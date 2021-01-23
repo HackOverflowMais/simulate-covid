@@ -1,15 +1,123 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<canvas id="myChart"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Interactive Test</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<main>
+		<section class="selections">
+			<div class="graph">
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js">
+				</script>
+				<canvas id="myChart"></canvas>
+				<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
+				</script>
+				<script src="script.js">
+				</script>
+			</div>
+			<div class="detail">
+				<h1>COVID 19 Modelling</h1>
+				<h3>Select the starting conditions:</h3>
+				<h2>Parameters</h2>
+
+				<div class='parent'>
+					<div class='child inline-block-child'>
+						<h3> Population: </h3>
+					</div>
+					<div class='child inline-block-child'>
+						<input type = "number" id ="populat" class="inputbox" min = "0">
+          
+          
+
+            </div>
+          </div>
+            <div class="rangeslider"> 
+              <input type="range" min="1" max="100" class="myslider" id="sliderRange"> 
+            </div>
+            <div class='parent'>
+          <div class='child inline-block-child'>
+             <h3> Infected: </h3> 
+            </div>
+              <div class='child inline-block-child'>
+              <input type = "number" id ="Infected" class="inputbox" min = "0">
+              </div>
+          </div>
+            <div class="rangeslider"> 
+              <input type="range" min="1" max="100" class="myslider" id="sliderRange2"> 
+            </div>
+
+
+
+
+        <div class='parent'>
+            <div class='child inline-block-child'>
+             <h3> Transmission Probability: </h3> 
+            </div>
+              <div class='child inline-block-child'>
+              <input type = "number" id ="Transmission_prob" class="inputbox" min = "0">
+              </div>
+          </div>
+            <div class="rangeslider"> 
+              <input type="range" min="1" max="100" class="myslider" id="sliderRange3"> 
+            </div>
+
+            <div class='parent'>
+          <div class='child inline-block-child'>
+             <h3> Contact Rate: </h3> 
+            </div>
+              <div class='child inline-block-child'>
+              <input type = "number" id ="Contact_Rate" class="inputbox" min = "0">
+              </div>
+          </div>
+            <div class="rangeslider"> 
+              <input type="range" min="1" max="100" class="myslider" id="sliderRange4"> 
+            </div>
+
+
+        <div class='parent'>
+            <div class='child inline-block-child'>
+             <h3> Incubation Period: </h3> 
+            </div>
+              <div class='child inline-block-child'>
+              <input type = "number" id ="Incubation" class="inputbox" min = "0">
+              </div>
+          </div>
+            <div class="rangeslider"> 
+              <input type="range" min="1" max="100" class="myslider" id="sliderRange5"> 
+            </div>
+
+            <div class='parent'>
+          <div class='child inline-block-child'>
+             <h3> Recovery Rate:</h3> 
+            </div>
+              <div class='child inline-block-child'>
+              <input type = "number" id ="Recovery" class="inputbox" min = "0">
+              </div>
+          </div>
+            <div class="rangeslider"> 
+              <input type="range" min="1" max="100" class="myslider" id="sliderRange6"> 
+            </div>
+            <br>
+              <button class="button">Advanced Settings</button>
+              
+
+        
+
+          
+
+          
+           
+          
+					
+        </div>
+		</section>
+	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
