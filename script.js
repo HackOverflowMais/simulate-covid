@@ -1,8 +1,8 @@
 var ctx = document.getElementById('myChart').getContext('2d');
 
-var beta = 0.1
-var gamma = 0.1
-var sigma = 0.1
+var beta = 0.056;
+var gamma = 0.04;
+var sigma = 1/7;
 
 // https://docs.idmod.org/projects/emod-hiv/en/latest/model-seir.html
 
@@ -24,10 +24,12 @@ function get_r_dot(i){
 
 // starting values of simulation
 
-susceptible = 0
-exposed = 0
-infectious = 1
-recovered = 0
+var susceptible = 1000;
+var exposed = 0;
+var infectious = 100;
+var recovered = 0;
+
+var resolution = 0.01 // number of points added per trial
 
 function simulate(t){
   var s = susceptible;
@@ -40,12 +42,14 @@ function simulate(t){
   var y = [];
   var z = [];
 
+  trial_no = 0
+
   var data_point;
   var final = [[], [], [], []];
 
   var s_dot, e_dot, i_dot, r_dot;
 
-  delta_t = 1; // time interval (smaller is slower but more accurate)
+  delta_t = 0.01; // time interval (smaller is slower but more accurate)
 
   for(j = 0; j <= t; j += delta_t){
     s_dot = get_s_dot(s, i, n);
@@ -61,16 +65,21 @@ function simulate(t){
 
     z = [s, e, i, r];
 
-    final[0].push({x: j, y: s});
-    final[1].push({x: j, y: e});
-    final[2].push({x: j, y: i});
-    final[3].push({x: j, y: r});
+    trial_no += resolution;
+
+    if (trial_no > 1){
+      final[0].push({x: j, y: s});
+      final[1].push({x: j, y: e});
+      final[2].push({x: j, y: i});
+      final[3].push({x: j, y: r});
+      trial_no -= 1;
+    }
   }
 
   return final;
 }
 
-plots = simulate(1000);
+plots = simulate(100);
 
 var chart = new Chart(ctx, { //template code for graphs
     // The type of chart we want to create
@@ -80,7 +89,7 @@ var chart = new Chart(ctx, { //template code for graphs
     data: {
       datasets: [{
         label: 's',
-        data: plots[0]
+        data: plots[0],
       }, {
         label: 'e',
         data: plots[1]
@@ -97,6 +106,9 @@ var chart = new Chart(ctx, { //template code for graphs
       scales: {
         xAxes: [{
           type: 'linear'
+        }],
+        yAxes: [{
+          stacked: true
         }]
       }
     }
