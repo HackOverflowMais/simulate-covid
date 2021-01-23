@@ -2,6 +2,7 @@ var rangeslid = document.getElementById("sliderRange");
 document.getElementById("populat").value = rangeslid.value;
 
 rangeslid.oninput = function() {
+  generate_new_graph();
   document.getElementById("populat").value = this.value;
 }
 
@@ -11,6 +12,7 @@ var rangeslid2 = document.getElementById("sliderRange2");
 document.getElementById("Infected").value = rangeslid2.value;
 
 rangeslid2.oninput = function() {
+  generate_new_graph();
   document.getElementById("Infected").value = this.value;
 }
 var textentry2 = document.getElementById("Infected");
@@ -20,6 +22,7 @@ var rangeslid3 = document.getElementById("sliderRange3");
 document.getElementById("Transmission_prob").value = rangeslid3.value;
 
 rangeslid3.oninput = function() {
+  generate_new_graph();
   document.getElementById("Transmission_prob").value = this.value;
 }
 
@@ -29,6 +32,7 @@ var rangeslid4 = document.getElementById("sliderRange4");
 document.getElementById("Contact_Rate").value = rangeslid4.value;
 
 rangeslid4.oninput = function() {
+  generate_new_graph();
   document.getElementById("Contact_Rate").value = this.value;
 }
 var textentry4 = document.getElementById("Contact_Rate");
@@ -38,6 +42,7 @@ var rangeslid5 = document.getElementById("sliderRange5");
 document.getElementById("Incubation").value = rangeslid5.value;
 
 rangeslid5.oninput = function() {
+  generate_new_graph();
   document.getElementById("Incubation").value = this.value;
 }
 
@@ -47,9 +52,12 @@ var rangeslid6 = document.getElementById("sliderRange6");
 document.getElementById("Recovery").value = rangeslid6.value;
 
 rangeslid6.oninput = function() {
+  generate_new_graph();
   document.getElementById("Recovery").value = this.value;
 }
 var textentry6 = document.getElementById("Recovery");
+
+
 
 // Chart Code -------------------------------------------------------------------
 
@@ -66,7 +74,7 @@ function get_s_dot(s, i, n){
 }
 
 function get_e_dot(s, i, n, e){
-  return beta * s * i / n - sigma * e;
+  return (beta * s * i )/ n - sigma * e;
 }
 
 function get_i_dot(e, i){
@@ -84,27 +92,31 @@ var exposed = 0;
 var infectious = 100;
 var recovered = 0;
 
-var resolution = 0.0001 // number of points added per trial
+var resolution = 0.1 // number of points added per trial
 
 function simulate(t){
+
   var s = susceptible;
   var e = exposed;
   var i = infectious;
   var r = recovered;
   var n = s + e + i + r;
 
+  console.log(typeof(r));
+
   var x = [];
   var y = [];
   var z = [];
 
-  trial_no = 1
+  var trial_no = 1;
 
   var data_point;
   var final = [[], [], [], []];
 
   var s_dot, e_dot, i_dot, r_dot;
 
-  delta_t = 0.01; // time interval (smaller is slower but more accurate)
+  const delta_t = 0.1; // time interval (smaller is slower but more accurate)
+
 
   for(j = 0; j <= t; j += delta_t){
     s_dot = get_s_dot(s, i, n);
@@ -116,9 +128,7 @@ function simulate(t){
     e += e_dot * delta_t;
     i += i_dot * delta_t;
     r += r_dot * delta_t;
-    n += s + e + i + r;
-
-    z = [s, e, i, r];
+    n = s + e + i + r;
 
     trial_no += resolution;
 
@@ -134,38 +144,21 @@ function simulate(t){
   return final;
 }
 
-plots = simulate(1000);
-
+var plots = simulate(1000);
 
 function calculate_min_y(plots){
-  var n = 0 // n is the sum of e, i, and r (in this case only)
+  var n = 0; // n is the sum of e, i, and r (in this case only)
   for(i = 1; i < 4; i++){
     n += plots[i][0]['y'];
   }
 
-  min_s = plots[0][plots[0].length - 1]['y'];
+  var min_s = plots[0][plots[0].length - 1]['y'];
 
   return min_s - n/2;
 }
 
 function define_datasets(plots){
-  return [{
-    label: 'Susceptible',
-    data: plots[0],
-    backgroundColor: 'rgba(255, 99, 132, 0.5)'
-  }, {
-    label: 'Exposed',
-    data: plots[1],
-    backgroundColor: 'rgba(153, 255, 153, 0.5)'
-  }, {
-    label: 'Infectuous',
-    data: plots[2],
-    backgroundColor: 'rgba(153, 153, 255, 0.5)'
-  }, {
-    label: 'Removed',
-    data: plots[3],
-    backgroundColor: 'rgba(255, 153, 153, 0.5)'
-  }];
+  return 
 }
 
 var chart = new Chart(ctx, { //template code for graphs
@@ -174,7 +167,31 @@ var chart = new Chart(ctx, { //template code for graphs
 
     // The data for our dataset
     data: {
-      datasets: define_datasets(plots)
+      datasets: [{
+    label: 'Susceptible',
+    data: plots[0],
+    backgroundColor: 'rgb(255, 205, 86)',
+    borderColor: 'rgba(239, 234, 86, 0)',
+    pointRadius: 0
+  }, {
+    label: 'Exposed',
+    data: plots[1],
+    backgroundColor: 'rgb(75, 192, 192)',
+    borderColor: 'rgba(0, 255, 0, 0)',
+    pointRadius: 0
+  }, {
+    label: 'Infectious',
+    data: plots[2],
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgba(255, 108, 108, 0)',
+    pointRadius: 0
+  }, {
+    label: 'Removed',
+    data: plots[3],
+    backgroundColor: 'rgb(54, 162, 235)',
+    borderColor: 'rgba(0, 0, 255, 0)',
+    pointRadius: 0
+  }]
     },
     // Configuration options go here
     options:{
@@ -185,27 +202,29 @@ var chart = new Chart(ctx, { //template code for graphs
         yAxes: [{
           stacked: true,
           ticks: {
-            min: calculate_min_y(plots)
+            min: 0
           }
         }]
       }
     }
 });
 
-document.getElementById("myChart").onclick = function() {myFunction()};
+function generate_new_graph(){
+  clearTimeout();
+  setTimeout(function(){
+    infectious = parseFloat(document.getElementById("Infected").value);
+    susceptible = parseFloat(document.getElementById("populat").value) - infectious;
+    beta = parseFloat(document.getElementById("Transmission_prob").value) * parseFloat(document.getElementById("Contact_Rate").value);
+    sigma = 1 / parseFloat(document.getElementById("Incubation").value);
+    gamma = parseFloat(document.getElementById("Recovery").value);
 
+    plots = simulate(1000);
 
+    var test_dataset = define_datasets(plots);
 
-function myFunction(){
-  beta = 5;
-
-  plots = simulate(1000);
-  test_dataset = define_datasets(plots);
-
-  chart.data.datasets[0] = test_dataset[0];
-  chart.data.datasets[1] = test_dataset[1];
-  chart.data.datasets[2] = test_dataset[2];
-  chart.data.datasets[3] = test_dataset[3];
- 
-  chart.update(0);
+    for(i = 0; i < 4; i++){
+      chart.data.datasets[i].data = plots[i];
+    }
+    chart.update();
+  }, 500)
 }
