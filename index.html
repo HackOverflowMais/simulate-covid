@@ -10,17 +10,30 @@
 
 <body>
 	<main>
-		<section class="selections">
+		<div class="selections">
 			<div class="graph">
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js">
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+
 				</script>
-        <div class="chart"> 
-				<canvas id="myChart" ></canvas>
-        </div>
-				<script> src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js">
+
+				</script>
+
+				<div class="layer1">
+					<canvas id="myChart"></canvas>
+				</div>
+				<br>
+				<div class="layer2">
+					<canvas id="covidChart"></canvas>
+				</div>
+
+				<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
+
 				</script>
 				<script src="script.js">
+
 				</script>
+
 			</div>
 			<div class="detail">
 				<h1>COVID 19 Modelling</h1>
@@ -29,7 +42,9 @@
 
 				<div class='parent'>
 					<div class='child inline-block-child'>
-						<h3> Population: </h3>
+						<div class="tooltip"> Population: 
+              <span class="tooltiptext"> This is the total population of people in the simulation</span>
+            </div>
 					</div>
 					<div class='child inline-block-child'>
 						<input type = "number" id ="populat" class="inputbox" min = "100" max ="1000000000" onchange="generate_new_graph()">
@@ -40,7 +55,9 @@
             </div>
             <div class='parent'>
           <div class='child inline-block-child'>
-             <h3> Infected: </h3> 
+             <div class="tooltip"> Infected: 
+              <span class="tooltiptext"> This is the number of infected people at the start of the simulation </span>
+            </div>
             </div>
               <div class='child inline-block-child'>
               <input type = "number" id ="Infected" class="inputbox" min="100" max="1000000000" onchange="generate_new_graph()">
@@ -49,13 +66,11 @@
             <div class="rangeslider"> 
               <input type="range" min="100" max="1000000000" class="myslider" id="sliderRange2"> 
             </div>
-
-
-
-
         <div class='parent'>
             <div class='child inline-block-child'>
-             <h3> Transmission Probability: </h3> 
+             <div class="tooltip"> Transmission Probability: 
+              <span class="tooltiptext"> This is the chance that the virus spreads if two people come in contact </span>
+            </div> 
             </div>
               <div class='child inline-block-child'>
               <input type = "number" id ="Transmission_prob" class="inputbox" min = "0" max="1" step = "0.01" onchange="generate_new_graph()">
@@ -67,7 +82,9 @@
 
             <div class='parent'>
           <div class='child inline-block-child'>
-             <h3> Contact Rate: </h3> 
+             <div class="tooltip"> Contact Rate: 
+              <span class="tooltiptext"> This is the number of contacts every person has on average in one day </span>
+            </div>
             </div>
               <div class='child inline-block-child'>
               <input type = "number" id ="Contact_Rate" class="inputbox" min = "0" max="10" step="0.1"onchange="generate_new_graph()">
@@ -80,7 +97,9 @@
 
         <div class='parent'>
             <div class='child inline-block-child'>
-             <h3> Incubation Period: </h3> 
+             <div class="tooltip"> Incubation Period: 
+              <span class="tooltiptext"> This is the average number of days during which the virus is present but not infectious or showing symptoms </span>
+            </div> 
             </div>
               <div class='child inline-block-child'>
               <input type = "number" id ="Incubation" class="inputbox"  min="1" max="50"onchange="generate_new_graph()">
@@ -92,7 +111,9 @@
 
             <div class='parent'>
           <div class='child inline-block-child'>
-             <h3> Recovery Rate:</h3> 
+             <div class="tooltip"> Recovery Rate: 
+              <span class="tooltiptext"> This is the rate at which people recover/die from the virus on average - measured in 1/number of days</span>
+            </div>
             </div>
               <div class='child inline-block-child'>
               <input type = "number" id ="Recovery" class="inputbox" min = "0"max="1"
@@ -104,8 +125,13 @@
               step="0.01" class="myslider" id="sliderRange6"> 
             </div>
             <br>
+            <br>
+            <h5>COVID- 19 is a pandemic that struck humanity at an alarming rate. Variables change on a dime with new statistics being reported after every minute - outbreak. Using conventional statistics to estimate the data is neither very accurate nor very easy to use.</h5>
+            <br>
+            <h5>
+
+           Our SIER model, divides the population into 4 distinct categories and lets a user input key  change variables to help predict the outcome of a given pandemic in their area.</h5>
         </div>
-		</section>
 	</main>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="script.js"></script>

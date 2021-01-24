@@ -5,31 +5,34 @@
 }
 
 .selections {
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	display: flex;
 }
 
 .graph {
-	flex: 1 1 60%;
-	width: 60%;
+  position: relative;
+	flex: 1 1 65%;
+	width: 65%;
 	padding: 50px 100px;
 	background-color: rgb(255,255, 255);
-  height: 800px;
+  height: 100%;
 }
-.graph img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	object-position: top;
-	opacity: 0;
+.layer1 {
+  width: 100%;
+  position: static; 
+}
+
+.layer2{
+  width: 100%;
+  position: static; 
 }
 
 .detail {
-	flex: 1 1 40%;
-	width: 40%;
+	flex: 1 1 35%;
+	width: 35%;
 	padding: 50px;
-  height: 800px;
+  min-height: 100%;
   background-color: rgba(126, 197, 255, 0.993)
 }
 
@@ -45,10 +48,12 @@
 	font-weight: 700px;
 }
 .detail h3 {
-	color: #53565A;
-	font-size: 20px;
-	font-weight: 300;
-	margin-bottom: 0px;
+
+}
+.detail h5{
+  color: #53565A;
+  font-size: 15px;
+  font-weight: 350;
 }
 
 
@@ -88,15 +93,41 @@
 .inline-block-child {
   display: inline-block;
 }
-.button{
-  font-size: 20px;
-  font-family: 'montserrat', sans-serif;
-  text-align: center;
-  width: 300px;
-  height: 50px;
-  color:  #53565A;
-}
 .chart {
   height: 100%;
   width: 100%;
+}
+.container_row{
+  display: flex;
+  position: relative;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  color: #53565A;
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 10pt;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
